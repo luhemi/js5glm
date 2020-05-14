@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.st.smartsecurity.mapper.CompanyBaseInfoMapper">
+  <resultMap id="BaseResultMap" type="com.st.smartsecurity.pojo.po.CompanyBaseInfo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="com_name" jdbcType="VARCHAR" property="comName" />
+    <result column="litComName" jdbcType="VARCHAR" property="litcomname" />
+    <result column="econkind" jdbcType="INTEGER" property="econkind" />
+    <result column="econkind_img" jdbcType="VARCHAR" property="econkindImg" />
+    <result column="econkind_img2" jdbcType="VARCHAR" property="econkindImg2" />
+    <result column="business_license" jdbcType="VARCHAR" property="businessLicense" />
+    <result column="operName" jdbcType="VARCHAR" property="opername" />
+    <result column="registCapi" jdbcType="VARCHAR" property="registcapi" />
+    <result column="startDate" jdbcType="DATE" property="startdate" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="isOnline" jdbcType="INTEGER" property="isonline" />
+    <result column="website_address" jdbcType="VARCHAR" property="websiteAddress" />
+    <result column="exchange" jdbcType="INTEGER" property="exchange" />
+    <result column="exchange_value" jdbcType="VARCHAR" property="exchangeValue" />
+    <result column="staffNum" jdbcType="INTEGER" property="staffnum" />
+    <result column="industry" jdbcType="VARCHAR" property="industry" />
+    <result column="info" jdbcType="VARCHAR" property="info" />
+    <result column="lastIncome" jdbcType="REAL" property="lastincome" />
+    <result column="oldIncome" jdbcType="REAL" property="oldincome" />
+    <result column="concatPerson" jdbcType="VARCHAR" property="concatperson" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="stock_code" jdbcType="VARCHAR" property="stockCode" />
+    <result column="company_id" jdbcType="BIGINT" property="companyId" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="upstream" jdbcType="INTEGER" property="upstream" />
+    <result column="midstream" jdbcType="INTEGER" property="midstream" />
+    <result column="downstream" jdbcType="INTEGER" property="downstream" />
+  </resultMap>
+</mapper>

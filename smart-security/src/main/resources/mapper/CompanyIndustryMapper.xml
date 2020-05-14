@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.st.smartsecurity.mapper.CompanyIndustryMapper">
+  <resultMap id="BaseResultMap" type="com.st.smartsecurity.pojo.po.CompanyIndustry">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="company_industry_id" jdbcType="BIGINT" property="companyIndustryId" />
+    <result column="company_id" jdbcType="BIGINT" property="companyId" />
+    <result column="industry" jdbcType="VARCHAR" property="industry" />
+    <result column="upstream" jdbcType="INTEGER" property="upstream" />
+    <result column="midstream" jdbcType="INTEGER" property="midstream" />
+    <result column="downstream" jdbcType="INTEGER" property="downstream" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+  </resultMap>
+</mapper>

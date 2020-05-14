@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.st.smartsecurity.mapper.CompanyProjectMapper">
+  <resultMap id="BaseResultMap" type="com.st.smartsecurity.pojo.po.CompanyProject">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="industry" jdbcType="VARCHAR" property="industry" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="is_encryption" jdbcType="INTEGER" property="isEncryption" />
+    <result column="encryption_code" jdbcType="VARCHAR" property="encryptionCode" />
+    <result column="project_introduce" jdbcType="VARCHAR" property="projectIntroduce" />
+    <result column="project_money" jdbcType="VARCHAR" property="projectMoney" />
+    <result column="project_keyword" jdbcType="VARCHAR" property="projectKeyword" />
+    <result column="project_start" jdbcType="DATE" property="projectStart" />
+    <result column="project_end" jdbcType="DATE" property="projectEnd" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="company_id" jdbcType="BIGINT" property="companyId" />
+  </resultMap>
+</mapper>

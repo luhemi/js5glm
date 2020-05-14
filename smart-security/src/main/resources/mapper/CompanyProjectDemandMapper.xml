@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.st.smartsecurity.mapper.CompanyProjectDemandMapper">
+  <resultMap id="BaseResultMap" type="com.st.smartsecurity.pojo.po.CompanyProjectDemand">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="company_project_demand_id" jdbcType="BIGINT" property="companyProjectDemandId" />
+    <result column="company_project_id" jdbcType="BIGINT" property="companyProjectId" />
+    <result column="demand_class" jdbcType="VARCHAR" property="demandClass" />
+    <result column="is_encryption" jdbcType="INTEGER" property="isEncryption" />
+    <result column="encryption_code" jdbcType="VARCHAR" property="encryptionCode" />
+    <result column="other_demand" jdbcType="VARCHAR" property="otherDemand" />
+    <result column="required_money" jdbcType="VARCHAR" property="requiredMoney" />
+    <result column="technology_demand_info" jdbcType="VARCHAR" property="technologyDemandInfo" />
+    <result column="market_demand_info" jdbcType="VARCHAR" property="marketDemandInfo" />
+    <result column="demand_info" jdbcType="VARCHAR" property="demandInfo" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="company_id" jdbcType="BIGINT" property="companyId" />
+  </resultMap>
+</mapper>
