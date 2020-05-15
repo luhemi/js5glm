@@ -34,5 +34,7 @@
     <result column="upstream" jdbcType="INTEGER" property="upstream" />
     <result column="midstream" jdbcType="INTEGER" property="midstream" />
     <result column="downstream" jdbcType="INTEGER" property="downstream" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+    <result column="rejected" jdbcType="VARCHAR" property="rejected" />
   </resultMap>
 </mapper>

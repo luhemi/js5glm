@@ -67,6 +67,13 @@ public class CompanyDemandServiceImpl implements CompanyDemandService {
     }
 
     @Override
+    public void updateProductDemand(CompanyProductDemandVO companyProductDemandVO) {
+        CompanyProductDemand companyProductDemand = BeanUtil.copyProperties(companyProductDemandVO, CompanyProductDemand.class);
+        companyProductDemand.setState(OftenConstant.WAIT_STATE);
+        companyProductDemandMapper.updateByPrimaryKeySelective(companyProductDemand);
+    }
+
+    @Override
     public CompanyProductDemandDTO getCompanyProductDemand(Long companyProductDemandId) {
         CompanyProductDemand companyProductDemand = new CompanyProductDemand();
         companyProductDemand.setCompanyProductDemandId(companyProductDemandId);
@@ -101,6 +108,17 @@ public class CompanyDemandServiceImpl implements CompanyDemandService {
     }
 
     @Override
+    public void checkCompanyProductDemand(Long companyProductDemandId, String state, String rejected) {
+        CompanyProductDemand companyProductDemand = new CompanyProductDemand();
+        companyProductDemand.setCompanyProductDemandId(companyProductDemandId);
+        companyProductDemand.setState(state);
+        if(StringUtils.isNotEmpty(rejected)){
+            companyProductDemand.setRejected(rejected);
+        }
+        companyProductDemandMapper.updateByPrimaryKeySelective(companyProductDemand);
+    }
+
+    @Override
     public void addProjectDemand(CompanyProjectDemandVO companyProjectDemandVO) {
         CompanyProjectDemand companyProjectDemand = BeanUtil.copyProperties(companyProjectDemandVO, CompanyProjectDemand.class);
         companyProjectDemand.setCreateDate(new Date());
@@ -114,6 +132,13 @@ public class CompanyDemandServiceImpl implements CompanyDemandService {
         CompanyProjectDemand companyProjectDemand = new CompanyProjectDemand();
         companyProjectDemand.setCompanyProjectDemandId(companyProjectDemandId);
         companyProjectDemand.setState(OftenConstant.DELETE_STATE);
+        companyProjectDemandMapper.updateByPrimaryKeySelective(companyProjectDemand);
+    }
+
+    @Override
+    public void updateProjectDemand(CompanyProjectDemandVO companyProjectDemandVO) {
+        CompanyProjectDemand companyProjectDemand = BeanUtil.copyProperties(companyProjectDemandVO, CompanyProjectDemand.class);
+        companyProjectDemand.setState(OftenConstant.WAIT_STATE);
         companyProjectDemandMapper.updateByPrimaryKeySelective(companyProjectDemand);
     }
 
@@ -152,6 +177,17 @@ public class CompanyDemandServiceImpl implements CompanyDemandService {
     }
 
     @Override
+    public void checkCompanyProjectDemand(Long companyProjectDemandId, String state, String rejected) {
+        CompanyProjectDemand companyProjectDemand = new CompanyProjectDemand();
+        companyProjectDemand.setCompanyProjectDemandId(companyProjectDemandId);
+        companyProjectDemand.setState(state);
+        if(StringUtils.isNotEmpty(rejected)){
+            companyProjectDemand.setRejected(rejected);
+        }
+        companyProjectDemandMapper.updateByPrimaryKeySelective(companyProjectDemand);
+    }
+
+    @Override
     public void addOtherDemand(CompanyOtherDemandVO companyOtherDemandVO) {
         CompanyOtherDemand companyOtherDemand = BeanUtil.copyProperties(companyOtherDemandVO, CompanyOtherDemand.class);
         companyOtherDemand.setCreateDate(new Date());
@@ -165,6 +201,13 @@ public class CompanyDemandServiceImpl implements CompanyDemandService {
         CompanyOtherDemand companyOtherDemand = new CompanyOtherDemand();
         companyOtherDemand.setCompanyOtherDemandId(companyOtherDemandId);
         companyOtherDemand.setState(OftenConstant.DELETE_STATE);
+        companyOtherDemandMapper.updateByPrimaryKeySelective(companyOtherDemand);
+    }
+
+    @Override
+    public void updateOtherDemand(CompanyOtherDemandVO companyOtherDemandVO) {
+        CompanyOtherDemand companyOtherDemand = BeanUtil.copyProperties(companyOtherDemandVO, CompanyOtherDemand.class);
+        companyOtherDemand.setState(OftenConstant.WAIT_STATE);
         companyOtherDemandMapper.updateByPrimaryKeySelective(companyOtherDemand);
     }
 
@@ -200,5 +243,16 @@ public class CompanyDemandServiceImpl implements CompanyDemandService {
         }
         pageInfo.setList(companyOtherDemandDTOList);
         return pageInfo;
+    }
+
+    @Override
+    public void checkCompanyOtherDemand(Long companyOtherDemandId, String state, String rejected) {
+        CompanyOtherDemand companyOtherDemand = new CompanyOtherDemand();
+        companyOtherDemand.setCompanyOtherDemandId(companyOtherDemandId);
+        companyOtherDemand.setState(state);
+        if(StringUtils.isNotEmpty(rejected)){
+            companyOtherDemand.setRejected(rejected);
+        }
+        companyOtherDemandMapper.updateByPrimaryKeySelective(companyOtherDemand);
     }
 }

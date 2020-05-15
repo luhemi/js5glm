@@ -85,6 +85,9 @@ public class CompanyProjectDTO {
     @ApiModelProperty(value = "结束时间")
     private Date projectEnd;
 
+    @ApiModelProperty(value = "驳回原因")
+    String rejected;
+
 
 
 }

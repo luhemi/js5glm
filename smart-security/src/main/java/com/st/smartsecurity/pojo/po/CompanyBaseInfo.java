@@ -170,6 +170,15 @@ public class CompanyBaseInfo {
     @Column(name = "`downstream`")
     private Integer downstream;
 
+    @Column(name = "`state`")
+    private String state;
+
+    /**
+     * 驳回原因
+     */
+    @Column(name = "`rejected`")
+    private String rejected;
+
     /**
      * @return id
      */
@@ -678,5 +687,37 @@ public class CompanyBaseInfo {
      */
     public void setDownstream(Integer downstream) {
         this.downstream = downstream;
+    }
+
+    /**
+     * @return state
+     */
+    public String getState() {
+        return state;
+    }
+
+    /**
+     * @param state
+     */
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    /**
+     * 获取驳回原因
+     *
+     * @return rejected - 驳回原因
+     */
+    public String getRejected() {
+        return rejected;
+    }
+
+    /**
+     * 设置驳回原因
+     *
+     * @param rejected 驳回原因
+     */
+    public void setRejected(String rejected) {
+        this.rejected = rejected;
     }
 }

@@ -57,7 +57,7 @@ public interface CompanyBaseInfoService {
      * @param companyId
      * @param isAdmin
      */
-    void updateCompanyAdmin(Long companyId, Integer isAdmin);
+    void updateCompanyAdmin(Long companyId, Integer isAdmin, String comName);
 
     /**
      * 通过上中下游查询公司id
@@ -78,4 +78,12 @@ public interface CompanyBaseInfoService {
      * @param companyId
      */
     void deleteCompany(Long companyId);
+
+    /**
+     * 审核公司基本信息
+     * @param companyId
+     * @param state
+     * @param rejected
+     */
+    void checkCompanyBaseInfo(Long companyId, String state, String rejected);
 }

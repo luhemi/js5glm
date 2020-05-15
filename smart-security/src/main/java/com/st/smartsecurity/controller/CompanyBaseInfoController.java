@@ -5,6 +5,7 @@ import com.google.common.base.Preconditions;
 import com.qs.common.core.response.BaseResponse;
 import com.st.smartsecurity.annotation.PassToken;
 import com.st.smartsecurity.pojo.dto.CompanyBaseInfoDTO;
+import com.st.smartsecurity.pojo.po.Company;
 import com.st.smartsecurity.pojo.vo.CompanyBaseInfoVO;
 import com.st.smartsecurity.pojo.vo.params.CompanyParamsVO;
 import com.st.smartsecurity.service.CompanyBaseInfoService;
@@ -75,8 +76,8 @@ public class CompanyBaseInfoController {
     public BaseResponse updateCompanyAdmin(Long companyId, Integer isAdmin, String comName){
         Preconditions.checkArgument(companyId != null, "公司id不可为空");
         Preconditions.checkArgument(isAdmin!= null,"修改类型不可为空");
-        Preconditions.checkArgument(companyBaseInfoService.listCompanyIdByName(comName).get(0) == 1,"此账户无权限");
-        companyBaseInfoService.updateCompanyAdmin(companyId, isAdmin);
+        Preconditions.checkArgument(!StringUtils.isEmpty(comName),"登录公司名不可为空");
+        companyBaseInfoService.updateCompanyAdmin(companyId, isAdmin, comName);
         addLogUtil.addLog(comName, "修改管理员身份");
         return BaseResponse.success();
     }
@@ -88,6 +89,14 @@ public class CompanyBaseInfoController {
         Preconditions.checkArgument(companyId != null, "公司id不可为空");
         companyBaseInfoService.deleteCompany(companyId);
         addLogUtil.addLog(comName, "删除公司");
+        return BaseResponse.success();
+    }
+
+    @PostMapping("checkCompanyBaseInfo")
+    @ApiOperation(value = "审核公司基本信息")
+    @PassToken
+    public BaseResponse checkCompanyBaseInfo(Long companyBaseInfoId, String state, String rejected){
+        companyBaseInfoService.checkCompanyBaseInfo(companyBaseInfoId, state, rejected);
         return BaseResponse.success();
     }
 }

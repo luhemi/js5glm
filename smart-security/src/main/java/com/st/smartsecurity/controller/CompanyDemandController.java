@@ -54,6 +54,17 @@ public class CompanyDemandController {
         return BaseResponse.success();
     }
 
+    @PostMapping("updateProductDemand")
+    @ApiOperation(value = "修改产品需求")
+    @PassToken
+    public BaseResponse updateProductDemand(@RequestBody CompanyProductDemandVO companyProductDemandVO){
+        Preconditions.checkArgument(companyProductDemandVO.getCompanyProductDemandId() != null, "产品需求id不可为空");
+        Preconditions.checkArgument(!StringUtils.isEmpty(companyProductDemandVO.getComName()), "公司名称不可为空");
+        companyDemandService.updateProductDemand(companyProductDemandVO);
+        addLogUtil.addLog(companyProductDemandVO.getComName(), "增加了新产品需求");
+        return BaseResponse.success();
+    }
+
     @PostMapping("getCompanyProductDemand")
     @ApiOperation(value = "获取产品需求详情")
     @PassToken
@@ -67,6 +78,14 @@ public class CompanyDemandController {
     @PassToken
     public BaseResponse listCompanyProductDemand(@RequestBody CompanyDemandParamsVO companyDemandParamsVO){
         return BaseResponse.success(companyDemandService.listCompanyProductDemand(companyDemandParamsVO));
+    }
+
+    @PostMapping("checkCompanyProductDemand")
+    @ApiOperation(value = "审核公司产品需求信息")
+    @PassToken
+    public BaseResponse checkCompanyProductDemand(Long companyProductDemandId, String state, String rejected){
+        companyDemandService.checkCompanyProductDemand(companyProductDemandId, state, rejected);
+        return BaseResponse.success();
     }
 
     @PostMapping("addProjectDemand")
@@ -91,6 +110,17 @@ public class CompanyDemandController {
         return BaseResponse.success();
     }
 
+    @PostMapping("updateProjectDemand")
+    @ApiOperation(value = "修改项目需求")
+    @PassToken
+    public BaseResponse updateProjectDemand(@RequestBody CompanyProjectDemandVO companyProjectDemandVO){
+        Preconditions.checkArgument(companyProjectDemandVO.getCompanyProjectDemandId() != null, "项目需求id不可为空");
+        Preconditions.checkArgument(!StringUtils.isEmpty(companyProjectDemandVO.getComName()), "公司名称不可为空");
+        companyDemandService.updateProjectDemand(companyProjectDemandVO);
+        addLogUtil.addLog(companyProjectDemandVO.getComName(), "修改了新项目需求");
+        return BaseResponse.success();
+    }
+
     @PostMapping("getCompanyProjectDemand")
     @ApiOperation(value = "获取项目需求详情")
     @PassToken
@@ -104,6 +134,14 @@ public class CompanyDemandController {
     @PassToken
     public BaseResponse listCompanyProjectDemand(@RequestBody CompanyDemandParamsVO companyDemandParamsVO){
         return BaseResponse.success(companyDemandService.listCompanyProjectDemand(companyDemandParamsVO));
+    }
+
+    @PostMapping("checkCompanyProjectDemand")
+    @ApiOperation(value = "审核公司项目需求信息")
+    @PassToken
+    public BaseResponse checkCompanyProjectDemand(Long companyProjectDemandId, String state, String rejected){
+        companyDemandService.checkCompanyProjectDemand(companyProjectDemandId, state, rejected);
+        return BaseResponse.success();
     }
 
 
@@ -129,6 +167,17 @@ public class CompanyDemandController {
         return BaseResponse.success();
     }
 
+    @PostMapping("updateOtherDemand")
+    @ApiOperation(value = "修改其它需求")
+    @PassToken
+    public BaseResponse updateOtherDemand(@RequestBody CompanyOtherDemandVO companyOtherDemandVO){
+        Preconditions.checkArgument(companyOtherDemandVO.getCompanyOtherDemandId() != null, "其它需求id不可为空");
+        Preconditions.checkArgument(!StringUtils.isEmpty(companyOtherDemandVO.getComName()), "公司名称不可为空");
+        companyDemandService.updateOtherDemand(companyOtherDemandVO);
+        addLogUtil.addLog(companyOtherDemandVO.getComName(), "增加了新其它需求");
+        return BaseResponse.success();
+    }
+
     @PostMapping("getCompanyOtherDemand")
     @ApiOperation(value = "获取其它需求详情")
     @PassToken
@@ -142,5 +191,13 @@ public class CompanyDemandController {
     @PassToken
     public BaseResponse listCompanyOtherDemand(@RequestBody CompanyDemandParamsVO companyDemandParamsVO){
         return BaseResponse.success(companyDemandService.listCompanyOtherDemand(companyDemandParamsVO));
+    }
+
+    @PostMapping("checkCompanyOtherDemand")
+    @ApiOperation(value = "审核公司其他需求信息")
+    @PassToken
+    public BaseResponse checkCompanyOtherDemand(Long companyOtherDemandId, String state, String rejected){
+        companyDemandService.checkCompanyOtherDemand(companyOtherDemandId, state, rejected);
+        return BaseResponse.success();
     }
 }

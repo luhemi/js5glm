@@ -70,4 +70,7 @@ public class CompanyProductDTO {
     @ApiModelProperty(value = "产品销售额")
     private String productSales;
 
+    @ApiModelProperty(value = "驳回原因")
+    String rejected;
+
 }

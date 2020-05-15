@@ -23,6 +23,7 @@ import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
+import javax.xml.crypto.dsig.spec.ExcC14NParameterSpec;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -45,35 +46,43 @@ public class CompanyBaseInfoServiceImpl implements CompanyBaseInfoService {
     @Override
     public void addBaseInfo(CompanyBaseInfoVO companyBaseInfoVO) {
         CompanyBaseInfo companyBaseInfo = BeanUtil.copyProperties(companyBaseInfoVO, CompanyBaseInfo.class);
-        if(companyBaseInfoVO.getEconkindImgs().get(0) != null){
+        if(StringUtils.isEmpty(companyBaseInfo.getEconkindImg())){
+            companyBaseInfo.setEconkindImg(null);
+        }
+/*        if(companyBaseInfoVO.getEconkindImgs().get(0) != null){
             companyBaseInfo.setEconkindImg(companyBaseInfoVO.getEconkindImgs().get(0));
         }
         if(companyBaseInfoVO.getEconkindImgs().get(1) != null){
             companyBaseInfo.setEconkindImg2(companyBaseInfoVO.getEconkindImgs().get(1));
-        }
+        }*/
         addIndustry(companyBaseInfoVO);
         companyBaseInfoMapper.insertSelective(companyBaseInfo);
     }
 
     @Override
     public void updateBaseInfo(CompanyBaseInfoVO companyBaseInfoVO) {
+        if(StringUtils.isEmpty(companyBaseInfoVO.getBusinessLicense())){
+            companyBaseInfoVO.setBusinessLicense(null);
+        }
         CompanyBaseInfo companyBaseInfo = BeanUtil.copyProperties(companyBaseInfoVO, CompanyBaseInfo.class);
         companyBaseInfo.setId(companyBaseInfoVO.getCompanyBaseInfoId());
-
-        CompanyBaseInfo companyImg = new CompanyBaseInfo();
-        companyImg.setId(companyBaseInfoVO.getCompanyBaseInfoId());
-        companyImg.setEconkindImg("");
-        companyImg.setEconkindImg2("");
-        companyBaseInfoMapper.updateByPrimaryKeySelective(companyImg);
-        if(companyBaseInfoVO.getEconkindImgs().size() > 0){
-            
+        companyBaseInfo.setState(OftenConstant.WAIT_STATE);
+        if(StringUtils.isEmpty(companyBaseInfo.getEconkindImg())){
+            companyBaseInfo.setEconkindImg(null);
+        }
+/*        if(companyBaseInfoVO.getEconkindImgs().size() > 0){
+            CompanyBaseInfo companyImg = new CompanyBaseInfo();
+            companyImg.setId(companyBaseInfoVO.getCompanyBaseInfoId());
+            companyImg.setEconkindImg("");
+            companyImg.setEconkindImg2("");
+            companyBaseInfoMapper.updateByPrimaryKeySelective(companyImg);
             if(companyBaseInfoVO.getEconkindImgs().get(0) != null){
                 companyBaseInfo.setEconkindImg(companyBaseInfoVO.getEconkindImgs().get(0));
             }
             if(companyBaseInfoVO.getEconkindImgs().get(1) != null){
                 companyBaseInfo.setEconkindImg2(companyBaseInfoVO.getEconkindImgs().get(1));
             }
-        }
+        }*/
 
         if(companyBaseInfoVO.getIndustryList().size() > 0){
             CompanyIndustry delIndustry = new CompanyIndustry();
@@ -97,14 +106,14 @@ public class CompanyBaseInfoServiceImpl implements CompanyBaseInfoService {
         CompanyBaseInfoDTO companyBaseInfoDTO = BeanUtil.copyProperties(companyBaseInfo, CompanyBaseInfoDTO.class);
         companyBaseInfoDTO.setCompanyBaseInfoId(companyBaseInfo.getId());
 
-        List<String> imgList = Lists.newArrayList();
+       /* List<String> imgList = Lists.newArrayList();
         if(companyBaseInfo.getEconkindImg() != null){
             imgList.add(companyBaseInfo.getEconkindImg());
         }
         if(companyBaseInfo.getEconkindImg2() != null){
             imgList.add(companyBaseInfo.getEconkindImg2());
         }
-        companyBaseInfoDTO.setEconkindImg(imgList);
+        companyBaseInfoDTO.setEconkindImg(imgList);*/
 
         Example industryExample = new Example(CompanyIndustry.class);
         industryExample.createCriteria().andEqualTo("companyId", companyId).andNotEqualTo("state",OftenConstant.DELETE_STATE);
@@ -174,7 +183,12 @@ public class CompanyBaseInfoServiceImpl implements CompanyBaseInfoService {
     }
 
     @Override
-    public void updateCompanyAdmin(Long companyId, Integer isAdmin) {
+    public void updateCompanyAdmin(Long companyId, Integer isAdmin, String comName) {
+        Example example = new Example(Company.class);
+        example.createCriteria().andNotEqualTo("state", OftenConstant.DELETE_STATE).andEqualTo("id", 1);
+        Company result = companyMapper.selectByExample(example).get(0);
+        Preconditions.checkArgument(result.getComName().equals(comName),"此账户无权限");
+
         Company company = new Company();
         company.setId(companyId);
         company.setIsAdmin(isAdmin);
@@ -224,6 +238,24 @@ public class CompanyBaseInfoServiceImpl implements CompanyBaseInfoService {
         Company company = new Company();
         company.setId(companyId);
         company.setState(OftenConstant.DELETE_STATE);
+        companyMapper.updateByPrimaryKeySelective(company);
+    }
+
+    @Override
+    public void checkCompanyBaseInfo(Long companyBaseInfoId, String state, String rejected) {
+        CompanyBaseInfo companyBaseInfo = new CompanyBaseInfo();
+        companyBaseInfo.setId(companyBaseInfoId);
+        companyBaseInfo.setState(state);
+        if(!StringUtils.isEmpty(rejected)){
+            companyBaseInfo.setRejected(rejected);
+        }
+        companyBaseInfoMapper.updateByPrimaryKeySelective(companyBaseInfo);
+
+        CompanyBaseInfo result = companyBaseInfoMapper.selectByPrimaryKey(companyBaseInfoId);
+
+        Company company = new Company();
+        company.setId(result.getCompanyId());
+        company.setState(state);
         companyMapper.updateByPrimaryKeySelective(company);
     }
 }

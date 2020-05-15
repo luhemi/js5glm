@@ -48,6 +48,16 @@ public class CompanyProductController {
         return BaseResponse.success();
     }
 
+    @PostMapping("updateProduct")
+    @ApiOperation(value = "修改公司产品")
+    @PassToken
+    public BaseResponse updateProduct(@RequestBody CompanyProductVO companyProductVO){
+        Preconditions.checkArgument(!StringUtils.isEmpty(companyProductVO.getComName()),"公司名不可为空");
+        Preconditions.checkArgument(companyProductVO.getCompanyProductId() != null,"公司产品id不可为空");
+        companyProductService.updateProduct(companyProductVO);
+        return BaseResponse.success();
+    }
+
     @PostMapping("getProduct")
     @ApiOperation(value = "获取产品详情")
     @PassToken
@@ -68,5 +78,13 @@ public class CompanyProductController {
     @PassToken
     public BaseResponse<List<CompanyProductDTO>> listProductNotPage(){
         return BaseResponse.success(companyProductService.listProductNotPage());
+    }
+
+    @PostMapping("checkCompanyProduct")
+    @ApiOperation(value = "审核公司产品信息")
+    @PassToken
+    public BaseResponse checkCompanyProduct(Long companyProductId, String state, String rejected){
+        companyProductService.checkCompanyProduct(companyProductId, state, rejected);
+        return BaseResponse.success();
     }
 }

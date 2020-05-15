@@ -92,6 +92,9 @@ public class CompanyProjectDemandDTO {
      */
     @ApiModelProperty("需求info")
     private String demandInfo;
+
+    @ApiModelProperty(value = "驳回原因")
+    String rejected;
 }
 
 

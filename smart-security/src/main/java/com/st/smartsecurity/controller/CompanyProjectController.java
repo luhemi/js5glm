@@ -54,6 +54,17 @@ public class CompanyProjectController {
         return BaseResponse.success();
     }
 
+    @PostMapping("updateProject")
+    @ApiOperation(value = "修改公司项目")
+    @PassToken
+    public BaseResponse updateProject(@RequestBody CompanyProjectVO companyProjectVO){
+        Preconditions.checkArgument(companyProjectVO.getCompanyProjectId() != null,"公司项目id不可为空");
+        Preconditions.checkArgument(!StringUtils.isEmpty(companyProjectVO.getComName()),"公司名称不可为空");
+        companyProjectService.updateProject(companyProjectVO);
+        addLogUtil.addLog(companyProjectVO.getComName(), "修改了公司项目");
+        return BaseResponse.success();
+    }
+
     @PostMapping("getCompanyProject")
     @ApiOperation(value = "获取公司项目详情")
     @PassToken
@@ -74,5 +85,13 @@ public class CompanyProjectController {
     @PassToken
     public BaseResponse<List<CompanyProjectDTO>> listProject(){
         return BaseResponse.success(companyProjectService.listProject());
+    }
+
+    @PostMapping("checkCompanyProject")
+    @ApiOperation(value = "审核公司项目信息")
+    @PassToken
+    public BaseResponse checkCompanyProject(Long companyProjectId, String state, String rejected){
+        companyProjectService.checkCompanyProject(companyProjectId, state, rejected);
+        return BaseResponse.success();
     }
 }

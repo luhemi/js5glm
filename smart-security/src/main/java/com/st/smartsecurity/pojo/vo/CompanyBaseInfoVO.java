@@ -40,8 +40,11 @@ public class CompanyBaseInfoVO {
     @ApiModelProperty("企业资质")
     private Integer econkind;
 
+//    @ApiModelProperty("企业资质图片")
+//    List<String> econkindImgs;
+
     @ApiModelProperty("企业资质图片")
-    List<String> econkindImgs;
+    String econkindImg;
 
     @ApiModelProperty("企业行业数组")
     List<String> industryList;

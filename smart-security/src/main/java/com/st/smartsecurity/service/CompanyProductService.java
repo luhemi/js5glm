@@ -26,6 +26,12 @@ public interface CompanyProductService {
     void deleteProduct(Long companyProductId, String comName);
 
     /**
+     * 修改公司产品
+     * @param companyProductVO
+     */
+    void updateProduct(CompanyProductVO companyProductVO);
+
+    /**
      * 获取公司产品详情
      * @param companyProductId
      * @return
@@ -44,4 +50,12 @@ public interface CompanyProductService {
      * @return
      */
     List<CompanyProductDTO> listProductNotPage();
+
+    /**
+     * 审核公司产品
+     * @param companyProductId
+     * @param state
+     * @param rejected
+     */
+    void checkCompanyProduct(Long companyProductId, String state, String rejected);
 }

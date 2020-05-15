@@ -23,6 +23,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
@@ -51,7 +52,7 @@ public class CompanyProjectServiceImpl implements CompanyProjectService {
         companyProject.setEncryptionCode(RandomStringUtils.randomAlphanumeric(10));
         companyProjectMapper.insertSelective(companyProject);
         //产品图片
-        if(companyProjectVO.getImgList() != null && companyProjectVO.getImgList().size() != 0){
+        /*if(companyProjectVO.getImgList() != null && companyProjectVO.getImgList().size() != 0){
             CompanyProjectImg projectImg = new CompanyProjectImg();
             projectImg.setState(OftenConstant.DELETE_STATE);
             Example example = new Example(CompanyProjectImg.class);
@@ -66,7 +67,7 @@ public class CompanyProjectServiceImpl implements CompanyProjectService {
                 companyProjectImg.setState(OftenConstant.NORMAL_STATE);
                 companyProjectImgMapper.insertSelective(companyProjectImg);
             }
-        }
+        }*/
     }
 
     @Override
@@ -75,6 +76,30 @@ public class CompanyProjectServiceImpl implements CompanyProjectService {
         companyProject.setId(companyProjectId);
         companyProject.setState(OftenConstant.DELETE_STATE);
         companyProjectMapper.updateByPrimaryKeySelective(companyProject);
+    }
+
+    @Override
+    public void updateProject(CompanyProjectVO companyProjectVO) {
+        CompanyProject companyProject = BeanUtil.copyProperties(companyProjectVO, CompanyProject.class);
+        companyProject.setState(OftenConstant.WAIT_STATE);
+        companyProjectMapper.updateByPrimaryKeySelective(companyProject);
+
+        /*CompanyProjectImg projectImg = new CompanyProjectImg();
+        projectImg.setState(OftenConstant.DELETE_STATE);
+        Example example = new Example(CompanyProjectImg.class);
+        example.createCriteria().andEqualTo("projectId",companyProject.getId());
+        companyProjectImgMapper.updateByExampleSelective(projectImg,example);
+        //产品图片
+        if(companyProjectVO.getImgList() != null && companyProjectVO.getImgList().size() != 0){
+            for (String imgAddress:companyProjectVO.getImgList()) {
+                CompanyProjectImg companyProjectImg = new CompanyProjectImg();
+                companyProjectImg.setCreateDate(new Date());
+                companyProjectImg.setImgUrl(imgAddress);
+                companyProjectImg.setProjectId(companyProject.getId());
+                companyProjectImg.setState(OftenConstant.NORMAL_STATE);
+                companyProjectImgMapper.insertSelective(companyProjectImg);
+            }
+        }*/
     }
 
     @Override
@@ -141,5 +166,16 @@ public class CompanyProjectServiceImpl implements CompanyProjectService {
         }
 
         return companyProjectDTOList;
+    }
+
+    @Override
+    public void checkCompanyProject(Long companyProjectId, String state, String rejected) {
+        CompanyProject companyProject = new CompanyProject();
+        companyProject.setId(companyProjectId);
+        companyProject.setState(state);
+        if(!StringUtils.isEmpty(rejected)){
+            companyProject.setRejected(rejected);
+        }
+        companyProjectMapper.updateByPrimaryKeySelective(companyProject);
     }
 }

@@ -53,7 +53,7 @@ public class LoginServiceImpl implements LoginService {
         companyDTO.setCompanyId(company.getId());
         companyDTO.setLoginName(company.getLoginName());
         companyDTO.setComName(company.getComName());
-
+        companyDTO.setIsAdmin(company.getIsAdmin());
         addLogUtil.addLog(company.getComName(), "登录后台");
         return companyDTO;
     }

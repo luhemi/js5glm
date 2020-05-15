@@ -30,6 +30,12 @@ public interface CompanyProjectService {
     void deleteProject(Long companyProjectId, String comName);
 
     /**
+     * 修改公司项目
+     * @param companyProjectVO
+     */
+    void updateProject(CompanyProjectVO companyProjectVO);
+
+    /**
      * 获取公司项目
      * @param companyProjectId
      * @return
@@ -48,4 +54,12 @@ public interface CompanyProjectService {
      * @return
      */
     List<CompanyProjectDTO> listProject();
+
+    /**
+     * 审核公司项目信息
+     * @param companyProjectId
+     * @param state
+     * @param rejected
+     */
+    void checkCompanyProject(Long companyProjectId, String state, String rejected);
 }

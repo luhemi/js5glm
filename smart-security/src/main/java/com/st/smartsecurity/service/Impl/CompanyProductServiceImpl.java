@@ -19,6 +19,7 @@ import com.st.smartsecurity.util.AddLogUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
@@ -71,6 +72,32 @@ public class CompanyProductServiceImpl implements CompanyProductService {
         companyProduct.setState(OftenConstant.DELETE_STATE);
         companyProductMapper.updateByPrimaryKeySelective(companyProduct);
         addLogUtil.addLog(comName, "删除了产品");
+    }
+
+    @Override
+    public void updateProduct(CompanyProductVO companyProductVO) {
+        CompanyProduct companyProduct = BeanUtil.copyProperties(companyProductVO, CompanyProduct.class);
+        companyProduct.setId(companyProductVO.getCompanyProductId());
+        companyProduct.setState(OftenConstant.WAIT_STATE);
+        companyProductMapper.updateByPrimaryKeySelective(companyProduct);
+        addLogUtil.addLog(companyProductVO.getComName(), "修改了产品");
+
+        CompanyProductImg productImg = new CompanyProductImg();
+        productImg.setState(OftenConstant.DELETE_STATE);
+        Example example = new Example(CompanyProductImg.class);
+        example.createCriteria().andEqualTo("productId",companyProduct.getId());
+        companyProductImgMapper.updateByExampleSelective(productImg,example);
+        //产品图片
+        if(companyProductVO.getImgList() != null && companyProductVO.getImgList().size() != 0){
+            for (String imgAddress:companyProductVO.getImgList()) {
+                CompanyProductImg companyProductImg = new CompanyProductImg();
+                companyProductImg.setCreateDate(new Date());
+                companyProductImg.setImgUrl(imgAddress);
+                companyProductImg.setProductId(companyProduct.getId());
+                companyProductImg.setState(OftenConstant.NORMAL_STATE);
+                companyProductImgMapper.insertSelective(companyProductImg);
+            }
+        }
     }
 
     @Override
@@ -137,5 +164,16 @@ public class CompanyProductServiceImpl implements CompanyProductService {
         }
 
         return companyProductDTOList;
+    }
+
+    @Override
+    public void checkCompanyProduct(Long companyProductId, String state, String rejected) {
+        CompanyProduct companyProduct = new CompanyProduct();
+        companyProduct.setId(companyProductId);
+        companyProduct.setState(state);
+        if(!StringUtils.isEmpty(rejected)){
+            companyProduct.setRejected(rejected);
+        }
+        companyProductMapper.updateByPrimaryKeySelective(companyProduct);
     }
 }

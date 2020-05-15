@@ -19,5 +19,6 @@
     <result column="state" jdbcType="VARCHAR" property="state" />
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
     <result column="company_id" jdbcType="BIGINT" property="companyId" />
+    <result column="rejected" jdbcType="VARCHAR" property="rejected" />
   </resultMap>
 </mapper>

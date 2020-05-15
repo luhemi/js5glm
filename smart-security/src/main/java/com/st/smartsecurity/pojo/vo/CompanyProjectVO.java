@@ -47,8 +47,8 @@ public class CompanyProjectVO {
     @ApiModelProperty("公司名称")
     private String comName;
 
-    @ApiModelProperty("图片列表")
-    List<String> imgList;
+//    @ApiModelProperty("图片列表")
+//    List<String> imgList;
 
 
     /**

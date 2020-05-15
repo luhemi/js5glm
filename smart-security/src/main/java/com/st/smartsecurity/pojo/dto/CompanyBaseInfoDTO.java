@@ -136,8 +136,11 @@ public class CompanyBaseInfoDTO {
     private String city;
 
 
+//    @ApiModelProperty("企业资质图片")
+//    List<String> econkindImg;
+
     @ApiModelProperty("企业资质图片")
-    List<String> econkindImg;
+    String econkindImg;
 
 
 
@@ -174,5 +177,8 @@ public class CompanyBaseInfoDTO {
      */
     @ApiModelProperty(value = "公司官网")
     private String websiteAddress;
+
+    @ApiModelProperty(value = "驳回原因")
+    String rejected;
 
 }

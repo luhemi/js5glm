@@ -12,6 +12,9 @@ import lombok.Data;
 @ApiModel(value = "公司项目需求VO")
 public class CompanyProjectDemandVO {
 
+    @ApiModelProperty(value = "项目需求id")
+    Long companyProjectDemandId;
+
     /**
      * 需求分类
      */

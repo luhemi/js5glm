@@ -14,6 +14,9 @@ import java.util.Date;
 @ApiModel(value = "公司产品需求VO")
 public class CompanyProductDemandVO {
 
+    @ApiModelProperty(value = "公司产品需求id")
+    Long companyProductDemandId;
+
     /**
      * 需求分类
      */

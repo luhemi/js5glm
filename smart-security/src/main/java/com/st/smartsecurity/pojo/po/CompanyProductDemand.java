@@ -80,6 +80,12 @@ public class CompanyProductDemand {
     private Long companyId;
 
     /**
+     * 驳回原因
+     */
+    @Column(name = "`rejected`")
+    private String rejected;
+
+    /**
      * @return company_product_demand_id
      */
     public Long getCompanyProductDemandId() {
@@ -313,5 +319,23 @@ public class CompanyProductDemand {
      */
     public void setCompanyId(Long companyId) {
         this.companyId = companyId;
+    }
+
+    /**
+     * 获取驳回原因
+     *
+     * @return rejected - 驳回原因
+     */
+    public String getRejected() {
+        return rejected;
+    }
+
+    /**
+     * 设置驳回原因
+     *
+     * @param rejected 驳回原因
+     */
+    public void setRejected(String rejected) {
+        this.rejected = rejected;
     }
 }
